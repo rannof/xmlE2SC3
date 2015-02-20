@@ -52,8 +52,8 @@ parser = argparse.ArgumentParser(
          formatter_class=argparse.RawDescriptionHelpFormatter,
          description='''E2SC - ElarmS to SeisComP3 event xml converter''',
          epilog='''Created by Ran Novitsky Nof (ran.nof@gmail.com), 2015 @ BSL''')
-parser.add_argument('-o',metavar='OutXML',default='-',help='Output xml file.',type=lambda x:is_valid_outfile(parser, x) )
-parser.add_argument('-i',metavar='InXML',nargs='+',default='-',help='Output xml file.',type=argparse.FileType('r'))
+parser.add_argument('-o',metavar='OutXML',default='-',help='Output xml file (SeisComP3)',type=lambda x:is_valid_outfile(parser, x) )
+parser.add_argument('-i',metavar='InXML',nargs='+',default='-',help='input xml file(s) (ElarmS)',type=argparse.FileType('r'))
 parser.add_argument('-t',action='store_true',help='Test mode (ignors input parameter if applicable)',default=False)
 
 def XE2S(Eid,ot,msgtime,mag,lat,lon,depth,agency='GII',author='EEWS',otu=0,magUnit='M',magu=0,latu=0,lonu=0,depthu=0,now=datetime.datetime.utcnow()):
