@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="xmlE2SC3 : Convert ElarmS modules E2 and DM event xml to SeisComP3 event xml.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>xmlE2SC3</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/rannof/xmlE2SC3">View on GitHub</a>
+
+          <h1 id="project_title">xmlE2SC3</h1>
+          <h2 id="project_tagline">Convert ElarmS modules E2 and DM event xml to SeisComP3 event xml.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/rannof/xmlE2SC3/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/rannof/xmlE2SC3/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>This tool aim is to convert <a href="http://seismo.berkeley.edu/">Berkeley Seismo Lab</a> EEWS algorithm <a href="http://seismo.berkeley.edu/%7Erallen/research/elarms/index.php">ElarmS</a> event messages to <a href="http://www.seiscomp3.org/">SeisComP3</a> event xml.
+Seiscomp3 xml can be fed to a Seicomp3 database using <a href="http://www.seiscomp3.org/doc/jakarta/current/apps/scdb.html">scdb</a>.<br>
+Created by Ran Novitsky Nof (<a href="http://ran.rnof.info">http://ran.rnof.info</a>), 2015 @ BSL</p>
+
+<h4>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>DEPENDENCIES:</h4>
+
+<p>Python modules:</p>
+
+<ul>
+<li>datetime</li>
+<li>argparse</li>
+<li>sys</li>
+<li>os</li>
+<li>xml</li>
+</ul>
+
+<h4>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>USAGE:</h4>
+
+<pre>
+E2SC.py [-h] [-o OutXML] [-i InXML [InXML ...]] [-t]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OutXML             Output xml file (Seiscomp3).
+  -i InXML [InXML ...]  input xml file(s) (Elarms).
+  -t                    Test mode (ignors input parameter if applicable)
+</pre>
+
+<p><em>Examples:</em></p>
+
+<pre><code>   E2SC.py -i events_20150214.log -o SCXML   
+   scdb -i SCXML -d mysql://sysop:sysop@localhost/seiscomp3  
+</code></pre>
+
+<p>or:</p>
+
+<pre><code>   cat [ELARMSXMLFILE] | E2SC.py | scdb -i - -d mysql://sysop:sysop@localhost/seiscomp3  
+</code></pre>
+
+<p>or:</p>
+
+<pre><code>   E2SC.py -i events_*.log | scdb -i - -d mysql://sysop:sysop@localhost/seiscomp3  
+</code></pre>
+
+<h4>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>LICENSE:</h4>
+
+<pre><code>Copyright (C) by Ran Novitsky Nof                                            
+
+E2SC.py is free software: you can redistribute it and/or modify              
+it under the terms of the GNU Lesser General Public License as published by  
+the Free Software Foundation, either version 3 of the License, or            
+(at your option) any later version.                                          
+
+This program is distributed in the hope that it will be useful,              
+but WITHOUT ANY WARRANTY; without even the implied warranty of               
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                
+GNU Lesser General Public License for more details.                          
+
+You should have received a copy of the GNU Lesser General Public License     
+along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;. 
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">xmlE2SC3 maintained by <a href="https://github.com/rannof">rannof</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
