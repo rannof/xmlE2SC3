@@ -31,7 +31,7 @@
 # ***********************************************************************************
 
 
-import datetime,argparse,sys,os
+import datetime,argparse,sys,os,re
 from xml.dom import minidom
 
 # command line parser
@@ -208,7 +208,7 @@ def test():
 
 def txt2scxml(lines):
   txt = ''  
-  eventsXMLs = ['<?'+event for event in (''.join([l for l in lines if l.lstrip().startswith('<')])).split('<?')][1:]  
+  eventsXMLs = ['<?'+event for event in (''.join([re.sub(".*\|","",l) for l in lines if re.sub(".*\|","",l).lstrip().startswith('<')])).split('<?')][1:]  
   for xml in eventsXMLs:
     scxml = algXML(xml)
     txt+=XE2S(*scxml())    
