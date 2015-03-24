@@ -175,7 +175,10 @@ class algXML(object):
     if m: self.decode(m)
   def decode(self,m):
     self.raw = m
-    xmldoc=minidom.parseString(m)
+    try:
+      xmldoc=minidom.parseString(m)
+    except:
+      xmldoc=minidom.parseString(self.fixxml(m))
     em = xmldoc.getElementsByTagName('event_message')[0]
     self.Eid=xmldoc.getElementsByTagName('core_info')[0].attributes['id'].value
     self.msgorigsys=em.attributes['orig_sys'].value
@@ -201,6 +204,19 @@ class algXML(object):
          +[datetime.datetime.utcnow()]
   def __str__(self):
     return '%s | E: %s (%s - %s) %f %f %f %f%s (%f)'%(self.orig_time.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),self.Eid,self.msgorigsys,self.msgtype,self.lat,self.lon,self.depth,self.mag,self.magUnit,(self.msgtime-self.orig_time).total_seconds())
+  def fixxml(self,xml):
+    fixed = []
+    for l in xml.split('\n'):
+      l1 = re.sub(r'=',r'="',l)
+      l2 = re.sub(r'(\S+) (\S+=")',r'\1" \2',l1)
+      l3 = re.sub(r'(<\S+)" ',r'\1 ',l2)
+      l4 = re.sub(r'(="\S+[^"]) [?]',r'\1" ?',l3)
+      l5 = re.sub(r'(="\S+)>(\S+>)',r'\1">\2',l4)
+      l6 = re.sub(r'(version="\S+)>',r'\1">',l5)
+      l7 = re.sub(r'(id="\S+)>',r'\1">',l6)
+      fixed.append(l7)
+    return '\n'.join(fixed)
+      
 
 def test():
   xml = getE2xmlmsg('test',6.5,31.5,35.5,10,0)
